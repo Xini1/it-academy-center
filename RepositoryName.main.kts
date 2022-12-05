@@ -1,0 +1,1 @@
+println(args[0].substringBefore(".git").substringAfterLast('/'))

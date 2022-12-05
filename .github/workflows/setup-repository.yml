@@ -4,20 +4,23 @@ on:
   workflow_dispatch:
 jobs:
   read-repositories:
+    name: "Read repositories"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: "Read repositories"
-        id: repositories
-        run: kotlin ./RepositoryMatrix.main.kts >> $GITHUB_OUTPUT
+      - id: repositories
+        run: "kotlin ./RepositoryMatrix.main.kts >> $GITHUB_OUTPUT"
     outputs:
       repositories: "${{ steps.repositories.outputs.repositories }}"
-  clone-repositories:
+  setup-repository:
+    name: "Setup repository"
     runs-on: ubuntu-latest
-    needs: "read-repositories"
+    needs: read-repositories
     strategy:
       matrix: "${{ fromJson(needs.read-repositories.outputs.repositories) }}"
     steps:
       - uses: actions/checkout@v3
-      - name: "Echo"
-        run: "echo ${{ matrix.repository }}"
+      - name: "Clone"
+        run: "git clone ${{ matrix.repository }}"
+      - name: "Step into repository"
+        run: "cd $( kotlin ./RepositoryName.main.kts ${{ matrix.repository }} )"
