@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: "Read repositories"
         id: repositories
-        run: kotlin ./RepositoryMatrix.main.kts
+        run: kotlin ./RepositoryMatrix.main.kts >> $GITHUB_OUTPUT
     outputs:
       repositories: "${{ steps.repositories.outputs.repositories }}"
   clone-repositories:
