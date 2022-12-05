@@ -11,7 +11,7 @@ jobs:
         id: repositories
         run: kotlin ./RepositoryMatrix.main.kts
     outputs:
-      repositories: "${{ steps.read-repositories.outputs.repositories }}"
+      repositories: "${{ steps.repositories.outputs.repositories }}"
   clone-repositories:
     runs-on: ubuntu-latest
     needs: "read-repositories"
