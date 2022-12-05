@@ -26,6 +26,8 @@ jobs:
         run: "cd $( kotlin ./RepositoryName.main.kts ${{ matrix.repository }} )"
       - name: "Create branch 'setup'"
         run: "git checkout -b setup"
+      - name: "Print directory contents"
+        run: "ls -lsa"
       - name: "Copy GitHub workflows to the repository"
         run: "mkdir ./.github && cp -r ./templates ./.github/workflows"
       - name: "Add copied GitHub workflows to the index"
