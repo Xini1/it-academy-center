@@ -19,6 +19,9 @@ jobs:
       matrix: "${{ fromJson(needs.read-repositories.outputs.repositories) }}"
     steps:
       - uses: actions/checkout@v3
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "Clone the repository"
         run: "git clone ${{ matrix.repository }} repository"
       - name: "Create branch 'setup'"
@@ -32,6 +35,12 @@ jobs:
       - name: "Add copied GitHub workflows to the index"
         working-directory: "repository"
         run: "git add ./.github"
+      - name: "Setup git username"
+        working-directory: "repository"
+        run: "git config user.name Xini1"
+      - name: "Setup git email"
+        working-directory: "repository"
+        run: "git config user.email tereshchenko.xini@gmail.com"
       - name: "Commit copied GitHub workflows"
         working-directory: "repository"
         run: "git commit -m 'GitHub workflows'"
