@@ -21,9 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "Clone the repository"
-        run: "git clone ${{ matrix.repository }}"
+        run: "git clone ${{ matrix.repository }} repository"
       - name: "Step into the repository"
-        run: "cd $( kotlin ./RepositoryName.main.kts ${{ matrix.repository }} )"
+        run: "cd repository"
       - name: "Create branch 'setup'"
         run: "git checkout -b setup"
       - name: "Print directory contents"
