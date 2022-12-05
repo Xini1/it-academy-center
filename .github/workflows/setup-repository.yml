@@ -16,8 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: "read-repositories"
     strategy:
-      matrix:
-        repository: "${{ fromJson(needs.read-repositories.outputs.repositories) }}"
+      matrix: "${{ fromJson(needs.read-repositories.outputs.repositories) }}"
     steps:
       - uses: actions/checkout@v3
       - name: "Echo"

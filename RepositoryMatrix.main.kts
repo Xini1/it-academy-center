@@ -8,6 +8,6 @@ fun withDoubleQuotes(strings: Collection<String>) =
         .map { '"' + it + '"' }
         .toList()
 
-fun json(repositories: Collection<String>) = """repositories={"include":$repositories}"""
+fun json(repositories: Collection<String>) = """repositories={"repository":$repositories}"""
 
 println(json(withDoubleQuotes(repositories())))
