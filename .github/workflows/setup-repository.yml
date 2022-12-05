@@ -1,5 +1,4 @@
 name: "Setup repositories"
-
 on:
   workflow_dispatch:
 jobs:
@@ -25,9 +24,11 @@ jobs:
       - name: "Create branch 'setup'"
         working-directory: "repository"
         run: "git checkout -b setup"
-      - name: "Copy GitHub workflows to the repository"
+      - name: "Create '.github' directory"
         working-directory: "repository"
-        run: "mkdir ./.github && cp -r ./templates ./.github/workflows"
+        run: "mkdir ./.github"
+      - name: "Copy GitHub workflows to the repository"
+        run: "cp -r ./templates ./repository/.github/workflows"
       - name: "Add copied GitHub workflows to the index"
         working-directory: "repository"
         run: "git add ./.github"
