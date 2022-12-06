@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - "repositories"
+      - "templates/*"
 jobs:
   read-repositories:
     name: "Read repositories"
