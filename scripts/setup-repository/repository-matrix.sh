@@ -10,4 +10,4 @@ for REPOSITORY in "${REPOSITORIES[@]}"; do
 done
 JSON="${JSON%?}]}"
 
-echo "$JSON"
+echo "$JSON" >>"$GITHUB_OUTPUT"
