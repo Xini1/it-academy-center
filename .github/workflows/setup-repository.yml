@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: repositories
-        run: "kotlin ./RepositoryMatrix.main.kts >> $GITHUB_OUTPUT"
+        run: "bash ./scripts/setup-repository/repository-matrix.sh >> $GITHUB_OUTPUT"
     outputs:
       repositories: ${{ steps.repositories.outputs.repositories }}
   setup-repository:
@@ -27,29 +27,11 @@ jobs:
       - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: "Clone the repository"
-        run: "git clone ${{ matrix.repository }} repository"
-      - name: "Create '.github' directory"
-        working-directory: "repository"
-        run: "mkdir -p ./.github"
-      - name: "Delete existing workflows"
-        working-directory: "repository"
-        run: "rm -rf ./.github/workflows"
-      - name: "Copy GitHub workflows to the repository"
-        run: "cp -r ./workflows ./repository/.github"
-      - name: "Add copied GitHub workflows to the index"
-        working-directory: "repository"
-        run: "git add ./.github/workflows"
-      - name: "Check index"
+      - name: "Update GitHub workflows in the repository"
         id: check-index
-        working-directory: "repository"
-        run: |
-          if [[ $( git diff --name-only --cached ) ]]; then
-            echo "has-files-to-commit=true" >> $GITHUB_OUTPUT
-          fi
-      - name: "Setup git username"
+        run: "kotlin ./scripts/setup-repository/UpdateGitHubWorflows.main.kts ${{ ${{ matrix.repository }} }} >> $GITHUB_OUTPUT"
+      - name: "Push"
         if: steps.check-index.outputs.has-files-to-commit
-        working-directory: "repository"
         run: "git config user.name Xini1"
       - name: "Setup git email"
         if: steps.check-index.outputs.has-files-to-commit
