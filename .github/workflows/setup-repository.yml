@@ -31,7 +31,7 @@ jobs:
         run: "git clone ${{ matrix.repository }} repository"
       - name: "Create '.github' directory"
         working-directory: "repository"
-        run: "mkdir ./.github"
+        run: "mkdir -p ./.github"
       - name: "Delete existing workflows"
         working-directory: "repository"
         run: "rm -rf ./.github/workflows"
