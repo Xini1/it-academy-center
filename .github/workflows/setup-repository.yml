@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - id: repositories
+      - name: "Read repositories"
+        id: repositories
         run: "bash ./scripts/setup-repository/repository-matrix.sh"
     outputs:
       repositories: ${{ steps.repositories.outputs.repositories }}
