@@ -29,8 +29,4 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "Update GitHub workflows in the repository"
-        id: update
         run: "bash ./scripts/setup-repository/update-github-workflows.sh ${{ matrix.repository }}"
-      - name: "Push GitHub workflows to the repository"
-        if: steps.update.outputs.has-files-to-commit
-        run: "bash ./scripts/setup-repository/push-github-workflows.sh"
