@@ -1,10 +1,10 @@
-plugins {
-    java
+allprojects {
+    group = "it.academy.center"
+    version = "1.0-SNAPSHOT"
 }
 
-group = "by.itacademy"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
+subprojects {
+    repositories {
+        mavenCentral()
+    }
 }

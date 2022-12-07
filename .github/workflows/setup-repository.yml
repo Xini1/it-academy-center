@@ -6,16 +6,21 @@ on:
     paths:
       - "repositories"
       - "workflows/*"
-      - "scripts/setup-repository/*"
+      - "setup/*"
 jobs:
   read-repositories:
     name: "Read repositories"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
       - name: "Read repositories"
         id: repositories
-        run: "bash ./scripts/setup-repository/repository-matrix.sh"
+        run: |
+          ./gradlew :setup:run --args="$GITHUB_OUTPUT"
     outputs:
       repositories: ${{ steps.repositories.outputs.repositories }}
   setup-repository:
