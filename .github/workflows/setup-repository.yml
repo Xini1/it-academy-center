@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - "repositories"
+      - "repository/*"
       - "workflows/*"
       - "setup/*"
 jobs:
@@ -31,8 +32,13 @@ jobs:
       matrix: ${{ fromJson(needs.read-repositories.outputs.repositories) }}
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
       - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "Update GitHub workflows in the repository"
-        run: "bash ./scripts/setup-repository/update-github-workflows.sh ${{ matrix.repository }}"
+        run: |
+          ./gradlew :repository:run --args="${{ matrix.repository }}"
