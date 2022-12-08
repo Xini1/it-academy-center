@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 
 include("setup")
 include("repository")
+include("homework")
