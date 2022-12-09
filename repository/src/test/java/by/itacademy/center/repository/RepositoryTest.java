@@ -1,5 +1,6 @@
 package by.itacademy.center.repository;
 
+import by.itacademy.center.shared.GitFake;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 

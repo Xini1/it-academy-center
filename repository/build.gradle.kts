@@ -8,6 +8,9 @@ application {
 }
 
 dependencies {
+    implementation(project(":shared"))
+
+    testImplementation(testFixtures(project(":shared")))
     testCompileOnly(libs.junit.api)
     testRuntimeOnly(libs.junit.engine)
     testImplementation(libs.assertj)

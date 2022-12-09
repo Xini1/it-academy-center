@@ -1,5 +1,7 @@
 package by.itacademy.center.repository;
 
+import by.itacademy.center.shared.CommandLineGit;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.Paths;

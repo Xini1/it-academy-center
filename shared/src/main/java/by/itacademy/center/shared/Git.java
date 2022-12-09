@@ -1,8 +1,8 @@
-package by.itacademy.center.repository;
+package by.itacademy.center.shared;
 
 import java.nio.file.Path;
 
-interface Git {
+public interface Git {
 
     Path clone(String url);
 

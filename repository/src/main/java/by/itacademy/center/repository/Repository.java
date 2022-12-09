@@ -1,5 +1,7 @@
 package by.itacademy.center.repository;
 
+import by.itacademy.center.shared.Git;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

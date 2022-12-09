@@ -1,4 +1,4 @@
-package by.itacademy.center.repository;
+package by.itacademy.center.shared;
 
 import java.io.IOException;
 import java.nio.file.Files;

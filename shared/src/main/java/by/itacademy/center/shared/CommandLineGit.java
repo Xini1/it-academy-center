@@ -1,4 +1,4 @@
-package by.itacademy.center.repository;
+package by.itacademy.center.shared;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-final class CommandLineGit implements Git {
+public final class CommandLineGit implements Git {
 
     private final Writer writer;
 
-    CommandLineGit(Writer writer) {
+    public CommandLineGit(Writer writer) {
         this.writer = writer;
     }
 
