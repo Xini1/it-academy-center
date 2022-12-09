@@ -18,6 +18,7 @@ public final class Directories {
                 var path = iterator.next();
                 var target = destination.resolve(path.getFileName());
                 if (Files.isDirectory(path)) {
+                    Files.createDirectories(target);
                     copyContents(path, target);
                 } else {
                     Files.copy(path, target);
