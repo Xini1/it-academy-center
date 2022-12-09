@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class CommandLineGit implements Git {
 
@@ -49,13 +48,29 @@ public final class CommandLineGit implements Git {
         executeGitCommand(repository, "push");
     }
 
-    private String executeGitCommand(Path workingDirectory, String command, String... arguments) {
+    @Override
+    public boolean hasBranch(Path repository, String branch) {
+        return executeGitCommand(
+                repository,
+                "for-each-ref",
+                "--format=\"%(refname:short)\"",
+                "refs/heads"
+        )
+                .contains(branch);
+    }
+
+    @Override
+    public void createBranch(Path repository, String branch) {
+        executeGitCommand(repository, "checkout", "-b");
+    }
+
+    private List<String> executeGitCommand(Path workingDirectory, String command, String... arguments) {
         try {
             var commands = commands(command, arguments);
             write(commands.toString());
             var process = process(workingDirectory, commands);
-            var output = readText(process);
-            write(output);
+            var output = readOutput(process);
+            write(output.toString());
             process.waitFor();
             return output;
         } catch (IOException e) {
@@ -74,10 +89,10 @@ public final class CommandLineGit implements Git {
         writer.write(System.lineSeparator());
     }
 
-    private String readText(Process process) throws IOException {
+    private List<String> readOutput(Process process) throws IOException {
         try (var reader = process.inputReader()) {
             return reader.lines()
-                    .collect(Collectors.joining(System.lineSeparator()));
+                    .toList();
         }
     }
 

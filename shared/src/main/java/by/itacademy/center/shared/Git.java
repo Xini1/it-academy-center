@@ -13,4 +13,8 @@ public interface Git {
     void commit(Path repository, String message);
 
     void push(Path repository);
+
+    boolean hasBranch(Path repository, String branch);
+
+    void createBranch(Path repository, String branch);
 }

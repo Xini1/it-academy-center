@@ -1,5 +1,6 @@
 package by.itacademy.center.repository;
 
+import by.itacademy.center.shared.Directories;
 import by.itacademy.center.shared.Git;
 
 import java.io.IOException;
@@ -24,23 +25,13 @@ final class Repository {
         var workflowsInRepository = repository.resolve(".github").resolve("workflows");
         delete(workflowsInRepository);
         Files.createDirectories(workflowsInRepository);
-        copyContents(workflows, workflowsInRepository);
+        Directories.copyContents(workflows, workflowsInRepository);
         git.add(repository, workflowsInRepository);
         if (git.hasNoFilesToCommit(repository)) {
             return;
         }
         git.commit(repository, "GitHub workflows");
         git.push(repository);
-    }
-
-    private void copyContents(Path source, Path destination) throws IOException {
-        try (Stream<Path> contents = Files.list(source)) {
-            var iterator = contents.iterator();
-            while (iterator.hasNext()) {
-                var path = iterator.next();
-                Files.copy(path, destination.resolve(path.getFileName()));
-            }
-        }
     }
 
     private void delete(Path path) throws IOException {

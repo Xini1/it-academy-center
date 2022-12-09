@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RepositoriesTest {
+final class RepositoriesTest {
 
     @Test
     void givenEmptyFile_whenWrite_thenArrayIsEmpty() throws IOException {

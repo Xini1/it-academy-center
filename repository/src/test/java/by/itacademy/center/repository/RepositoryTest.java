@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RepositoryTest {
+final class RepositoryTest {
 
     @Test
     void givenWorkflowsDoNotExist_whenConfigure_thenWorkflowsPushed(@TempDir Path path) throws IOException {
@@ -22,7 +22,7 @@ class RepositoryTest {
         assertThat(git.executedCommands())
                 .containsExactly(
                         new GitFake.Clone("url"),
-                        new GitFake.Add(path, path.resolve(".github").resolve("workflows")),
+                        new GitFake.Add(path, path.resolve(".github/workflows")),
                         new GitFake.Diff(path),
                         new GitFake.Commit(path, "GitHub workflows"),
                         new GitFake.Push(path)
