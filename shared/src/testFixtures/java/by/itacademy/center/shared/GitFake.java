@@ -38,12 +38,6 @@ public final class GitFake implements Git {
     }
 
     @Override
-    public void config(Path repository, String name, String email) {
-        executedCommands.add(new ConfigUserName(repository, name));
-        executedCommands.add(new ConfigUserEmail(repository, email));
-    }
-
-    @Override
     public void commit(Path repository, String message) {
         executedCommands.add(new Commit(repository, message));
     }
@@ -64,10 +58,6 @@ public final class GitFake implements Git {
     public record Add(Path repository, Path path) implements Command {}
 
     public record Diff(Path repository) implements Command {}
-
-    public record ConfigUserName(Path repository, String name) implements Command {}
-
-    public record ConfigUserEmail(Path repository, String email) implements Command {}
 
     public record Commit(Path repository, String message) implements Command {}
 

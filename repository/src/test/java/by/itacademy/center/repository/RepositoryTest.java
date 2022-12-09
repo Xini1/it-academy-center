@@ -24,8 +24,6 @@ class RepositoryTest {
                         new GitFake.Clone("url"),
                         new GitFake.Add(path, path.resolve(".github").resolve("workflows")),
                         new GitFake.Diff(path),
-                        new GitFake.ConfigUserName(path, "Xini1"),
-                        new GitFake.ConfigUserEmail(path, "tereshchenko.xini@gmail.com"),
                         new GitFake.Commit(path, "GitHub workflows"),
                         new GitFake.Push(path)
                 );
@@ -63,8 +61,6 @@ class RepositoryTest {
                         new GitFake.Clone("url"),
                         new GitFake.Add(path, workflows),
                         new GitFake.Diff(path),
-                        new GitFake.ConfigUserName(path, "Xini1"),
-                        new GitFake.ConfigUserEmail(path, "tereshchenko.xini@gmail.com"),
                         new GitFake.Commit(path, "GitHub workflows"),
                         new GitFake.Push(path)
                 );

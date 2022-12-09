@@ -29,7 +29,6 @@ final class Repository {
         if (git.hasNoFilesToCommit(repository)) {
             return;
         }
-        git.config(repository, "Xini1", "tereshchenko.xini@gmail.com");
         git.commit(repository, "GitHub workflows");
         git.push(repository);
     }

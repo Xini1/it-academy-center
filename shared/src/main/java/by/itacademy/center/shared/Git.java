@@ -10,8 +10,6 @@ public interface Git {
 
     boolean hasNoFilesToCommit(Path repository);
 
-    void config(Path repository, String name, String email);
-
     void commit(Path repository, String message);
 
     void push(Path repository);

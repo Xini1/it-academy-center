@@ -34,14 +34,14 @@ public final class CommandLineGit implements Git {
     }
 
     @Override
-    public void config(Path repository, String name, String email) {
-        executeGitCommand(repository, "config", "user.name", name);
-        executeGitCommand(repository, "config", "user.email", email);
-    }
-
-    @Override
     public void commit(Path repository, String message) {
-        executeGitCommand(repository, "commit", "-m", message);
+        executeGitCommand(
+                repository,
+                "commit",
+                "--author=\"Xini1 <tereshchenko.xini@gmail.com>\"",
+                "-m",
+                message
+        );
     }
 
     @Override
