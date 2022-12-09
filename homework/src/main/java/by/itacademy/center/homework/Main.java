@@ -15,7 +15,9 @@ final class Main {
                     Integer.parseInt(args[1]),
                     Paths.get("homeworks").toAbsolutePath(),
                     new GitInTerminal(new LoggingTerminal(new RealTerminal(), writer)),
-                    args[0]
+                    args[0],
+                    args[2],
+                    new RestApiGitHub()
             )
                     .publish();
         } catch (Exception e) {

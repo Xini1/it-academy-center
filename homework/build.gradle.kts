@@ -9,6 +9,7 @@ application {
 
 dependencies {
     implementation(project(":shared"))
+    implementation(libs.gson)
 
     testImplementation(testFixtures(project(":shared")))
     testCompileOnly(libs.junit.api)

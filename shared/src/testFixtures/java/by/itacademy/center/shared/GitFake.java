@@ -64,6 +64,11 @@ public final class GitFake implements Git {
         executedCommands.add(new Checkout(repository, branch));
     }
 
+    @Override
+    public String defaultBranch(Path repository) {
+        return branches.iterator().next();
+    }
+
     public Collection<Command> executedCommands() {
         return List.copyOf(executedCommands);
     }

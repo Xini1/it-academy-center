@@ -14,12 +14,16 @@ final class Homework {
     private final Path homeworks;
     private final Git git;
     private final String repositoryUrl;
+    private final String personalAccessToken;
+    private final GitHub gitHub;
 
-    Homework(int number, Path homeworks, Git git, String repositoryUrl) {
+    Homework(int number, Path homeworks, Git git, String repositoryUrl, String personalAccessToken, GitHub gitHub) {
         this.number = number;
         this.homeworks = homeworks;
         this.git = git;
         this.repositoryUrl = repositoryUrl;
+        this.personalAccessToken = personalAccessToken;
+        this.gitHub = gitHub;
     }
 
     void publish() throws IOException {
@@ -37,5 +41,19 @@ final class Homework {
         git.add(repository, homeworkDirectoryInRepository);
         git.commit(repository, branch);
         git.push(repository);
+        gitHub.openPullRequest(
+                personalAccessToken,
+                repositoryOwner(),
+                repositoryName(),
+                new GitHub.Payload(branch, "", branch, git.defaultBranch(repository))
+        );
+    }
+
+    private String repositoryOwner() {
+        return repositoryUrl.substring("git@github.com:".length(), repositoryUrl.indexOf('/'));
+    }
+
+    private String repositoryName() {
+        return repositoryUrl.substring(repositoryUrl.indexOf('/') + 1, repositoryUrl.indexOf(".git"));
     }
 }

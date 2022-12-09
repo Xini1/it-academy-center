@@ -37,4 +37,4 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "Publish required homework"
         run: |
-          ./gradlew :homework:run --args="${{ matrix.repository }} ${{ matrix.lesson }}"
+          ./gradlew :homework:run --args="${{ matrix.repository }} ${{ matrix.lesson }} ${{ secrets.PERSONAL_ACCESS_TOKEN }}"

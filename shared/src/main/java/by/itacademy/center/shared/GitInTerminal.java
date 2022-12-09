@@ -57,6 +57,12 @@ public final class GitInTerminal implements Git {
         executeGitCommand(repository, "checkout", "-b", branch);
     }
 
+    @Override
+    public String defaultBranch(Path repository) {
+        var remoteBranch = executeGitCommand(repository, "rev-parse", "--abbrev-ref", "origin/HEAD").get(0);
+        return remoteBranch.substring(remoteBranch.indexOf('/') + 1);
+    }
+
     private String activeBranch(Path repository) {
         return executeGitCommand(repository, "rev-parse", "--abbrev-ref", "HEAD").get(0);
     }

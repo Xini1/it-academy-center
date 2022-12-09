@@ -17,4 +17,6 @@ public interface Git {
     boolean hasBranch(Path repository, String branch);
 
     void createBranch(Path repository, String branch);
+
+    String defaultBranch(Path repository);
 }
