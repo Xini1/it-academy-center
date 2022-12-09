@@ -16,10 +16,14 @@ final class Checksum {
         this.digest = digest;
     }
 
-    static Checksum from(Path path) throws NoSuchAlgorithmException, IOException {
-        var messageDigest = MessageDigest.getInstance("MD5");
-        digest(path, messageDigest);
-        return new Checksum(messageDigest.digest());
+    static Checksum from(Path path) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            digest(path, messageDigest);
+            return new Checksum(messageDigest.digest());
+        } catch (NoSuchAlgorithmException | IOException e) {
+            throw new CouldNotCalculateChecksum(e);
+        }
     }
 
     private static void digest(Path path, MessageDigest messageDigest) throws IOException {
@@ -59,5 +63,12 @@ final class Checksum {
         }
         var checksum = (Checksum) object;
         return Arrays.equals(digest, checksum.digest);
+    }
+
+    static final class CouldNotCalculateChecksum extends RuntimeException {
+
+        CouldNotCalculateChecksum(Throwable cause) {
+            super(cause);
+        }
     }
 }

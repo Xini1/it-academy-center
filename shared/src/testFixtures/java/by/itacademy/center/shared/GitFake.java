@@ -1,8 +1,6 @@
 package by.itacademy.center.shared;
 
-import java.io.IOException;
 import java.nio.file.Path;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +16,7 @@ public final class GitFake implements Git {
         this.checksum = checksum;
     }
 
-    public static GitFake repository(Path repository) throws NoSuchAlgorithmException, IOException {
+    public static GitFake repository(Path repository) {
         return new GitFake(repository, Checksum.from(repository));
     }
 
@@ -36,11 +34,7 @@ public final class GitFake implements Git {
     @Override
     public boolean hasNoFilesToCommit(Path repository) {
         executedCommands.add(new Diff(repository));
-        try {
-            return Checksum.from(repository).equals(checksum);
-        } catch (NoSuchAlgorithmException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        return Checksum.from(repository).equals(checksum);
     }
 
     @Override
