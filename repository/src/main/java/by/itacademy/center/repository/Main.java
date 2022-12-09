@@ -12,7 +12,7 @@ final class Main {
     public static void main(String[] args) {
         try (var writer = new OutputStreamWriter(System.out)) {
             new Repository(
-                    Paths.get("./workflows").toAbsolutePath(),
+                    Paths.get("workflows").toAbsolutePath(),
                     new GitInTerminal(new LoggingTerminal(new RealTerminal(), writer)),
                     args[0]
             )

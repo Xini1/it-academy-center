@@ -14,8 +14,8 @@ public final class GitInTerminal implements Git {
 
     @Override
     public Path clone(String url) {
-        var repository = Paths.get("./cloned").toAbsolutePath();
-        executeGitCommand(Paths.get("./").toAbsolutePath(), "clone", url, repository.toString());
+        var repository = Paths.get("cloned").toAbsolutePath();
+        executeGitCommand(Paths.get("").toAbsolutePath(), "clone", url, repository.toString());
         return repository;
     }
 
@@ -31,18 +31,14 @@ public final class GitInTerminal implements Git {
 
     @Override
     public void commit(Path repository, String message) {
-        executeGitCommand(
-                repository,
-                "commit",
-                "--author=\"Xini1 <tereshchenko.xini@gmail.com>\"",
-                "-m",
-                message
-        );
+        executeGitCommand(repository, "config", "user.name", "Xini1");
+        executeGitCommand(repository, "config", "user.email", "tereshchenko.xini@gmail.com");
+        executeGitCommand(repository, "commit", "-m", message);
     }
 
     @Override
     public void push(Path repository) {
-        executeGitCommand(repository, "push");
+        executeGitCommand(repository, "push", "-u", "origin", activeBranch(repository));
     }
 
     @Override
@@ -58,7 +54,11 @@ public final class GitInTerminal implements Git {
 
     @Override
     public void createBranch(Path repository, String branch) {
-        executeGitCommand(repository, "checkout", "-b");
+        executeGitCommand(repository, "checkout", "-b", branch);
+    }
+
+    private String activeBranch(Path repository) {
+        return executeGitCommand(repository, "rev-parse", "--abbrev-ref", "HEAD").get(0);
     }
 
     private List<String> executeGitCommand(Path workingDirectory, String... arguments) {

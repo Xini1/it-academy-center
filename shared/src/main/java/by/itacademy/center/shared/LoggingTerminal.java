@@ -44,7 +44,7 @@ public final class LoggingTerminal implements Terminal {
         writer.write(System.lineSeparator());
     }
 
-    static final class CouldNotWrite extends RuntimeException {
+    private static final class CouldNotWrite extends RuntimeException {
 
         CouldNotWrite(Throwable cause) {
             super(cause);

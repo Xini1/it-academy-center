@@ -13,6 +13,9 @@ public final class RealTerminal implements Terminal {
             var process = process(workingDirectory, commands(command, arguments));
             var output = readOutput(process);
             process.waitFor();
+            if (process.exitValue() != 0) {
+                throw new ExecutionFailed(process.exitValue());
+            }
             return output;
         } catch (IOException e) {
             throw new ExecutionFailed(e);
@@ -44,10 +47,14 @@ public final class RealTerminal implements Terminal {
         }
     }
 
-    static final class ExecutionFailed extends RuntimeException {
+    private static final class ExecutionFailed extends RuntimeException {
 
-        private ExecutionFailed(Throwable cause) {
+        ExecutionFailed(Throwable cause) {
             super(cause);
+        }
+
+        ExecutionFailed(int exitCode) {
+            super("Exit code is " + exitCode);
         }
     }
 }

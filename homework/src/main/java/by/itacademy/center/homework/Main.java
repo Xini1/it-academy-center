@@ -13,7 +13,7 @@ final class Main {
         try (var writer = new OutputStreamWriter(System.out)) {
             new Homework(
                     Integer.parseInt(args[1]),
-                    Paths.get("./homeworks").toAbsolutePath(),
+                    Paths.get("homeworks").toAbsolutePath(),
                     new GitInTerminal(new LoggingTerminal(new RealTerminal(), writer)),
                     args[0]
             )
