@@ -1,8 +1,8 @@
 package by.itacademy.center.repository;
 
-import by.itacademy.center.shared.GitInTerminal;
-import by.itacademy.center.shared.LoggingTerminal;
-import by.itacademy.center.shared.RealTerminal;
+import by.itacademy.center.shared.git.GitInTerminal;
+import by.itacademy.center.shared.terminal.LoggingTerminal;
+import by.itacademy.center.shared.terminal.RealTerminal;
 
 import java.io.OutputStreamWriter;
 import java.nio.file.Paths;

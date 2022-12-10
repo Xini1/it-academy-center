@@ -1,5 +1,7 @@
 package by.itacademy.center.setup;
 
+import by.itacademy.center.shared.TeeWriter;
+
 import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.io.Writer;

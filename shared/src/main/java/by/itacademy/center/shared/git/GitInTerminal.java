@@ -1,4 +1,6 @@
-package by.itacademy.center.shared;
+package by.itacademy.center.shared.git;
+
+import by.itacademy.center.shared.terminal.Terminal;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

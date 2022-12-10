@@ -1,6 +1,6 @@
 package by.itacademy.center.repository;
 
-import by.itacademy.center.shared.GitFake;
+import by.itacademy.center.shared.FakeGit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -15,17 +15,17 @@ final class RepositoryTest {
 
     @Test
     void givenWorkflowsDoNotExist_whenConfigure_thenWorkflowsPushed(@TempDir Path path) throws IOException {
-        var git = GitFake.repository(path);
+        var git = FakeGit.repository(path);
 
         new Repository(Paths.get("src/test/resources"), git, "url").configure();
 
         assertThat(git.executedCommands())
                 .containsExactly(
-                        new GitFake.Clone("url"),
-                        new GitFake.Add(path, path.resolve(".github/workflows")),
-                        new GitFake.Diff(path),
-                        new GitFake.Commit(path, "GitHub workflows"),
-                        new GitFake.Push(path)
+                        new FakeGit.Clone("url"),
+                        new FakeGit.Add(path, path.resolve(".github/workflows")),
+                        new FakeGit.Diff(path),
+                        new FakeGit.Commit(path, "GitHub workflows"),
+                        new FakeGit.Push(path)
                 );
     }
 
@@ -35,15 +35,15 @@ final class RepositoryTest {
         Files.createDirectories(workflows);
         var resources = Paths.get("src/test/resources");
         Files.copy(resources.resolve("workflow"), workflows.resolve("workflow"));
-        var git = GitFake.repository(path);
+        var git = FakeGit.repository(path);
 
         new Repository(resources, git, "url").configure();
 
         assertThat(git.executedCommands())
                 .containsExactly(
-                        new GitFake.Clone("url"),
-                        new GitFake.Add(path, workflows),
-                        new GitFake.Diff(path)
+                        new FakeGit.Clone("url"),
+                        new FakeGit.Add(path, workflows),
+                        new FakeGit.Diff(path)
                 );
     }
 
@@ -52,17 +52,17 @@ final class RepositoryTest {
         var workflows = path.resolve(".github/workflows");
         Files.createDirectories(workflows);
         Files.createFile(workflows.resolve("other-workflow"));
-        var git = GitFake.repository(path);
+        var git = FakeGit.repository(path);
 
         new Repository(Paths.get("src/test/resources"), git, "url").configure();
 
         assertThat(git.executedCommands())
                 .containsExactly(
-                        new GitFake.Clone("url"),
-                        new GitFake.Add(path, workflows),
-                        new GitFake.Diff(path),
-                        new GitFake.Commit(path, "GitHub workflows"),
-                        new GitFake.Push(path)
+                        new FakeGit.Clone("url"),
+                        new FakeGit.Add(path, workflows),
+                        new FakeGit.Diff(path),
+                        new FakeGit.Commit(path, "GitHub workflows"),
+                        new FakeGit.Push(path)
                 );
     }
 }

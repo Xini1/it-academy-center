@@ -1,7 +1,7 @@
 package by.itacademy.center.homework;
 
 import by.itacademy.center.shared.Directories;
-import by.itacademy.center.shared.Git;
+import by.itacademy.center.shared.git.Git;
 
 import java.io.IOException;
 import java.nio.file.Files;

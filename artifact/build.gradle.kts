@@ -3,14 +3,14 @@ plugins {
 }
 
 application {
-    mainClass.set("by.itacademy.center.setup.Main")
+    mainClass.set("by.itacademy.center.artifact.Main")
     tasks.run.get().workingDir = rootProject.projectDir
 }
 
 dependencies {
     implementation(project(":shared"))
-    implementation(libs.gson)
 
+    testImplementation(testFixtures(project(":shared")))
     testCompileOnly(libs.junit.api)
     testRuntimeOnly(libs.junit.engine)
     testImplementation(libs.assertj)

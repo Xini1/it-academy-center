@@ -1,4 +1,4 @@
-package by.itacademy.center.shared;
+package by.itacademy.center.shared.git;
 
 import java.nio.file.Path;
 

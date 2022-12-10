@@ -1,14 +1,14 @@
-package by.itacademy.center.setup;
+package by.itacademy.center.shared;
 
 import java.io.IOException;
 import java.io.Writer;
 
-final class TeeWriter extends Writer {
+public final class TeeWriter extends Writer {
 
     private final Writer first;
     private final Writer second;
 
-    TeeWriter(Writer first, Writer second) {
+    public TeeWriter(Writer first, Writer second) {
         this.first = first;
         this.second = second;
     }

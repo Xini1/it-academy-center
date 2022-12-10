@@ -1,6 +1,6 @@
 package by.itacademy.center.homework;
 
-import by.itacademy.center.shared.GitFake;
+import by.itacademy.center.shared.FakeGit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -15,7 +15,7 @@ final class HomeworkTest {
 
     @Test
     void givenBranchWithHomeworkExists_whenPublish_thenNoHomeworkIsPublished(@TempDir Path path) throws IOException {
-        var git = GitFake.repository(path, List.of("main", "homework/lesson1"));
+        var git = FakeGit.repository(path, List.of("main", "homework/lesson1"));
         var gitHub = new FakeGitHub();
 
         new Homework(
@@ -30,15 +30,15 @@ final class HomeworkTest {
 
         assertThat(git.executedCommands())
                 .containsExactly(
-                        new GitFake.Clone("git@github.com:owner/repository.git"),
-                        new GitFake.Branches(path)
+                        new FakeGit.Clone("git@github.com:owner/repository.git"),
+                        new FakeGit.Branches(path)
                 );
         assertThat(gitHub.pullRequest()).isNull();
     }
 
     @Test
     void givenBranchWithHomeworkDoNotExist_whenPublish_thenHomeworkIsPublished(@TempDir Path path) throws IOException {
-        var git = GitFake.repository(path);
+        var git = FakeGit.repository(path);
         var gitHub = new FakeGitHub();
 
         new Homework(
@@ -53,12 +53,12 @@ final class HomeworkTest {
 
         assertThat(git.executedCommands())
                 .containsExactly(
-                        new GitFake.Clone("git@github.com:owner/repository.git"),
-                        new GitFake.Branches(path),
-                        new GitFake.Checkout(path, "homework/lesson1"),
-                        new GitFake.Add(path, path.resolve("src/main/java/by/itacademy/lesson1")),
-                        new GitFake.Commit(path, "homework/lesson1"),
-                        new GitFake.Push(path)
+                        new FakeGit.Clone("git@github.com:owner/repository.git"),
+                        new FakeGit.Branches(path),
+                        new FakeGit.Checkout(path, "homework/lesson1"),
+                        new FakeGit.Add(path, path.resolve("src/main/java/by/itacademy/lesson1")),
+                        new FakeGit.Commit(path, "homework/lesson1"),
+                        new FakeGit.Push(path)
                 );
         assertThat(gitHub.pullRequest())
                 .isEqualTo(

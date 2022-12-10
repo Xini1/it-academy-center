@@ -1,4 +1,4 @@
-package by.itacademy.center.shared;
+package by.itacademy.center.shared.terminal;
 
 import java.io.IOException;
 import java.nio.file.Path;
