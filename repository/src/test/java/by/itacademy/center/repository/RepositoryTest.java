@@ -27,6 +27,7 @@ final class RepositoryTest {
                         new FakeGit.Commit(path, "GitHub workflows"),
                         new FakeGit.Push(path)
                 );
+        assertThat(path.resolve(".github/workflows/workflow")).isNotEmptyFile();
     }
 
     @Test
@@ -45,6 +46,7 @@ final class RepositoryTest {
                         new FakeGit.Add(path, workflows),
                         new FakeGit.Diff(path)
                 );
+        assertThat(workflows.resolve("workflow")).isNotEmptyFile();
     }
 
     @Test
@@ -64,5 +66,7 @@ final class RepositoryTest {
                         new FakeGit.Commit(path, "GitHub workflows"),
                         new FakeGit.Push(path)
                 );
+        assertThat(workflows.resolve("workflow")).isNotEmptyFile();
+        assertThat(workflows.resolve("other-workflow")).doesNotExist();
     }
 }
