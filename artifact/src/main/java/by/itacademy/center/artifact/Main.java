@@ -12,8 +12,11 @@ import java.nio.file.Paths;
 final class Main {
 
     public static void main(String[] args) {
-        try (var writer = new TeeWriter(new FileWriter(args[0]), new OutputStreamWriter(System.out))) {
-            var terminal = new LoggingTerminal(new RealTerminal(), writer);
+        try (
+                var logging = new OutputStreamWriter(System.out);
+                var writer = new TeeWriter(new FileWriter(args[0]), logging);
+        ) {
+            var terminal = new LoggingTerminal(new RealTerminal(), logging);
             new OutputFormatter(writer)
                     .write(
                             new Artifact(

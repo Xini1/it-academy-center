@@ -1,4 +1,4 @@
-name: "Publish homework"
+name: "Review homework"
 on:
   workflow_dispatch:
     inputs:

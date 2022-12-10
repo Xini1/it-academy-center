@@ -14,7 +14,7 @@ public final class RealTerminal implements Terminal {
             var output = readOutput(process);
             process.waitFor();
             if (process.exitValue() != 0) {
-                throw new ExecutionFailed(process.exitValue());
+                throw new ExecutionFailed(process.exitValue(), output);
             }
             return output;
         } catch (IOException e) {
@@ -53,8 +53,14 @@ public final class RealTerminal implements Terminal {
             super(cause);
         }
 
-        ExecutionFailed(int exitCode) {
-            super("Exit code is " + exitCode);
+        ExecutionFailed(int exitCode, List<String> output) {
+            super(
+                    String.format(
+                            "Exit code is %d. Output was:%n%s",
+                            exitCode,
+                            String.join(System.lineSeparator(), output)
+                    )
+            );
         }
     }
 }
