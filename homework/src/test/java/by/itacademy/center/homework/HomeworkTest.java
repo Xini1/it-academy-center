@@ -74,5 +74,6 @@ final class HomeworkTest {
                                 )
                         )
                 );
+        assertThat(path.resolve("src/main/java/by/itacademy/lesson1/Main.java")).isNotEmptyFile();
     }
 }
