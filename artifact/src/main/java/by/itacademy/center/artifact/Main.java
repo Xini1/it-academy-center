@@ -14,14 +14,16 @@ final class Main {
     public static void main(String[] args) {
         try (var writer = new TeeWriter(new FileWriter(args[0]), new OutputStreamWriter(System.out))) {
             var terminal = new LoggingTerminal(new RealTerminal(), writer);
-            new Artifact(
-                    new GitInTerminal(terminal),
-                    args[1],
-                    terminal,
-                    Paths.get("artifact/src/main/resources").toAbsolutePath(),
-                    writer
-            )
-                    .build();
+            new OutputFormatter(writer)
+                    .write(
+                            new Artifact(
+                                    new GitInTerminal(terminal),
+                                    args[1],
+                                    terminal,
+                                    Paths.get("artifact/src/main/resources").toAbsolutePath()
+                            )
+                                    .build()
+                    );
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);

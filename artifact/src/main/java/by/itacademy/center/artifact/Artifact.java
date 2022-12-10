@@ -5,7 +5,6 @@ import by.itacademy.center.shared.git.Git;
 import by.itacademy.center.shared.terminal.Terminal;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.nio.file.Path;
 
 final class Artifact {
@@ -14,20 +13,18 @@ final class Artifact {
     private final String repositoryUrl;
     private final Terminal terminal;
     private final Path gradleFiles;
-    private final Writer writer;
 
-    Artifact(Git git, String repositoryUrl, Terminal terminal, Path gradleFiles, Writer writer) {
+    Artifact(Git git, String repositoryUrl, Terminal terminal, Path gradleFiles) {
         this.git = git;
         this.repositoryUrl = repositoryUrl;
         this.terminal = terminal;
         this.gradleFiles = gradleFiles;
-        this.writer = writer;
     }
 
-    void build() throws IOException {
+    Path build() throws IOException {
         var repository = git.clone(repositoryUrl);
         Directories.copyContents(gradleFiles, repository);
         terminal.execute(repository, "./gradlew", ":build");
-        writer.write(repository.resolve("build/libs/artifact.jar").toString());
+        return repository.resolve("build/libs/artifact.jar");
     }
 }
