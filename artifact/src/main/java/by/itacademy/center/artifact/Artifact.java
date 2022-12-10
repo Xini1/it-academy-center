@@ -24,7 +24,7 @@ final class Artifact {
     Path build() throws IOException {
         var repository = git.clone(repositoryUrl);
         Directories.copyContents(gradleFiles, repository);
-        terminal.execute(repository, "./gradlew", ":build");
+        terminal.execute(repository, "./gradlew", "build");
         return repository.resolve("build/libs/artifact.jar");
     }
 }

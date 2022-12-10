@@ -22,7 +22,7 @@ final class ArtifactTest {
                 .isEqualTo(path.resolve("build/libs/artifact.jar"));
         assertThat(git.executedCommands()).containsExactly(new FakeGit.Clone("url"));
         assertThat(terminal.executedCommands())
-                .containsExactly(new FakeTerminal.Command(path, "./gradlew :build"));
+                .containsExactly(new FakeTerminal.Command(path, "./gradlew build"));
         assertThat(path.resolve("file")).isNotEmptyFile();
     }
 }
