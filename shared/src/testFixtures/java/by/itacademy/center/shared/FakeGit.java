@@ -56,7 +56,7 @@ public final class FakeGit implements Git {
     }
 
     @Override
-    public boolean hasBranch(Path repository, String branch) {
+    public boolean hasRemoteBranch(Path repository, String branch) {
         executedCommands.add(new Branches(repository));
         return branches.contains(branch);
     }

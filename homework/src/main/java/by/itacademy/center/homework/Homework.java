@@ -29,7 +29,7 @@ final class Homework {
     void publish() throws IOException {
         var repository = git.clone(repositoryUrl);
         var branch = "homework/lesson" + number;
-        if (git.hasBranch(repository, branch)) {
+        if (git.hasRemoteBranch(repository, branch)) {
             return;
         }
         git.createBranch(repository, branch);

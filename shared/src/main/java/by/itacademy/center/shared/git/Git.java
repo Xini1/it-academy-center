@@ -14,7 +14,7 @@ public interface Git {
 
     void push(Path repository);
 
-    boolean hasBranch(Path repository, String branch);
+    boolean hasRemoteBranch(Path repository, String branch);
 
     void createBranch(Path repository, String branch);
 

@@ -44,14 +44,9 @@ public final class GitInTerminal implements Git {
     }
 
     @Override
-    public boolean hasBranch(Path repository, String branch) {
-        return executeGitCommand(
-                repository,
-                "for-each-ref",
-                "--format=\"%(refname:short)\"",
-                "refs/heads"
-        )
-                .contains(branch); //TODO
+    public boolean hasRemoteBranch(Path repository, String branch) {
+        return executeGitCommand(repository, "for-each-ref", "--format=\"%(refname:short)\"")
+                .contains("origin/" + branch);
     }
 
     @Override
