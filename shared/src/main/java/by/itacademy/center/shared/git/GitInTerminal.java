@@ -51,7 +51,7 @@ public final class GitInTerminal implements Git {
                 "--format=\"%(refname:short)\"",
                 "refs/heads"
         )
-                .contains(branch);
+                .contains(branch); //TODO
     }
 
     @Override

@@ -1,0 +1,27 @@
+name: "Publish homework"
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: repository
+        required: true
+jobs:
+  review:
+    name: "Review homework"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: "Build artifact"
+        id: build
+        run: |
+          ./gradlew :artifact:run --args="$GITHUB_OUTPUT ${{ github.event.inputs.repository }}"
+      - name: "Review homework"
+        run: |
+          ./gradlew :review:run -Partifact="${{ steps.build.outputs.artifact }}"

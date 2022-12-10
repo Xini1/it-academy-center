@@ -19,7 +19,7 @@ jobs:
           ./gradlew :setup:run --args="$GITHUB_OUTPUT"
     outputs:
       setup: ${{ steps.repositories-and-lessons.outputs.setup }}
-  post-homeework:
+  publish-homework:
     name: "Publish homework"
     runs-on: ubuntu-latest
     needs: read-repositories-and-lessons
