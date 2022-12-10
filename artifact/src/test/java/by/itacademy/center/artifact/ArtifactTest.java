@@ -26,6 +26,6 @@ final class ArtifactTest {
         assertThat(git.executedCommands()).containsExactly(new FakeGit.Clone("url"));
         assertThat(terminal.executedCommands())
                 .containsExactly(new FakeTerminal.Command(path, "./gradlew :build"));
-        assertThat(path).isDirectoryContaining("glob:**/file");
+        assertThat(path.resolve("file")).isNotEmptyFile();
     }
 }
