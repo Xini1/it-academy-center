@@ -56,7 +56,7 @@ final class HomeworkTest {
                         new FakeGit.Clone("git@github.com:owner/repository.git"),
                         new FakeGit.Branches(path),
                         new FakeGit.Checkout(path, "homework/lesson1"),
-                        new FakeGit.Add(path, path.resolve("src/main/java/by/itacademy/lesson1")),
+                        new FakeGit.Add(path, path),
                         new FakeGit.Commit(path, "homework/lesson1"),
                         new FakeGit.Push(path)
                 );
@@ -74,6 +74,6 @@ final class HomeworkTest {
                                 )
                         )
                 );
-        assertThat(path.resolve("src/main/java/by/itacademy/lesson1/Main.java")).isNotEmptyFile();
+        assertThat(path.resolve("file")).isNotEmptyFile();
     }
 }

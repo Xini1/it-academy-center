@@ -4,9 +4,7 @@ import by.itacademy.center.shared.Directories;
 import by.itacademy.center.shared.git.Git;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 final class Homework {
 
@@ -33,12 +31,9 @@ final class Homework {
             return;
         }
         git.createBranch(repository, branch);
-        var targetHomeworkDirectory = Paths.get("src/main/java/by/itacademy/lesson" + number);
-        var homeworkDirectoryInRepository = repository.resolve(targetHomeworkDirectory);
-        var sourceHomeworkDirectory = homeworks.resolve(targetHomeworkDirectory);
-        Files.createDirectories(homeworkDirectoryInRepository);
-        Directories.copyContents(sourceHomeworkDirectory, homeworkDirectoryInRepository);
-        git.add(repository, homeworkDirectoryInRepository);
+        var sourceHomeworkDirectory = homeworks.resolve(String.valueOf(number));
+        Directories.copyContents(sourceHomeworkDirectory, repository);
+        git.add(repository, repository);
         git.commit(repository, branch);
         git.push(repository);
         gitHub.openPullRequest(
